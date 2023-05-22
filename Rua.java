@@ -1,4 +1,13 @@
 public class Rua {
+    private String logradouro;
+    private String nomeLogradouro;
+
+    
+    public Rua(String logradouro, String nomeLogradouro) {
+        this.logradouro = logradouro;
+        this.nomeLogradouro = nomeLogradouro;
+    }
+
     private class Node{ 
         public Node prev;
         public Node next;
@@ -18,6 +27,10 @@ public class Rua {
        header.next = trailer;
        trailer.prev = header;
        count = 0;
+    }
+
+    public int compareTo(Rua element) {
+        return 0;
     }
 }
 

@@ -13,58 +13,14 @@ import java.time.format.DateTimeFormatter;
 
 public class Menu {
     private Scanner in;
+    private char[] lista;
+    private char[] lista2;
 
     Menu(){
         Scanner in = new Scanner(System.in);
+        ListaSinalizacoes lista = new ListaSinalizacoes();
+        LinkedListOfString lista2 = new LinkedListOfString();
     }
-
-    public void menu(){
-        leituraArquivo();
-        System.out.println("1 - Rua/Av/Trav com mais sinalizações registradas");
-        System.out.println("2 - mês que mais foram implatadas senialuzações em Rua/Av/Trav");
-        System.out.println("3 - Menu de Navegação");
-    }
-
-    /*public void executa() {
-        int opcao = -1;
-        do {
-            menu();
-            boolean ok;
-            do {
-                ok = true;
-                try {
-                opcao = in.nextInt();
-                } catch (InputMismatchException e1) {
-                    in.nextLine();
-                    ok = false;
-                    System.out.println("Tipo incorreto. Redigite.\n");
-                } catch (Exception e2) {
-                    in.nextLine();
-                    ok = false;
-                    e2.printStackTrace();
-                    System.out.println("Redigite.\n");
-                }
-            } while (!ok);
-            in.nextLine();
-
-            /*switch (opcao) {
-                case 0:
-                    break;
-                case 1:
-                    cadastraEspacoPorto();
-                    break;
-                case 2:
-                    cadastraEspacoNave();
-                    break;
-                case 3:
-                    cadastraTransporte();
-                    break;
-                default:
-                    System.out.println("Opção inválida");
-            }
-        } while (opcao != 0);
-    }*/
-
 
     public void leituraArquivo(){
         String linhas[] = new String[110000];
@@ -88,7 +44,7 @@ public class Menu {
         // Mude numLinhas para algum numero pequeno para executar testes mais rapidamente.
         // Ex:
         // for (int i = 0; i < 50; i++) {
-        for (int i = 0; i < numLinhas; i++) {
+        for (int i = 0; i < 20; i++) {
             String[] campos = linhas[i].split(";");
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
@@ -149,10 +105,65 @@ public class Menu {
             String localInstalacao = "";
             if(campos.length>=13)
                 localInstalacao = campos[12];
+            ListaSinalizacoes lista = new ListaSinalizacoes();
+            Sinalizacao sinalizacao = new Sinalizacao(numInicial, numFinal, descricao, lado, localInstalacao, dateTime);
+            lista.add(sinalizacao);
+            LinkedListOfString lista2 = new LinkedListOfString();
+            Rua rua = new Rua(logradouro, nomeLog);
+            lista2.orderedAdd(rua);
 
             System.out.println("Num inicial e final: " + numInicial + ", " + numFinal + "; "
                     + defronte + "; " + cruzamento + "; " + lado + "; " + fluxo + "; " + localInstalacao);
             System.out.println("---------------------------------------> " + i);
         }
+    }
+
+    public void menu(){
+        leituraArquivo();
+        System.out.println("1 - Rua/Av/Trav com mais sinalizações registradas");
+        System.out.println("2 - Mês que mais foram implatadas senialuzações em Rua/Av/Trav");
+        System.out.println("3 - Menu de Navegação");
+    }
+
+    public void executa() {
+        Scanner in = new Scanner(System.in);
+        int opcao = -1;
+        do {
+            menu();
+            boolean ok;
+            do {
+                ok = true;
+                try {
+                opcao = in.nextInt();
+                } catch (InputMismatchException e1) {
+                    in.nextLine();
+                    ok = false;
+                    System.out.println("Tipo incorreto. Redigite.\n");
+                } catch (Exception e2) {
+                    in.nextLine();
+                    ok = false;
+                    e2.printStackTrace();
+                    System.out.println("Redigite.\n");
+                }
+            } while (!ok);
+            in.nextLine();
+
+            switch (opcao) {
+                case 0:
+                    break;
+                case 1:
+                    System.out.println(lista.toString());
+                    System.out.println(lista2.toString());
+                    break;
+                /*case 2:
+                    cadastraEspacoNave();
+                    break;
+                case 3:
+                    cadastraTransporte();
+                    break;
+                default:
+                    System.out.println("Opção inválida");*/
+            } 
+        } while (opcao != 0);
     }
 }
