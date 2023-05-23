@@ -10,13 +10,13 @@ public class Sinalizacao {
     private LocalDateTime dataImplantacao;
     
     public Sinalizacao(double numInicial, double numFinal, String descricao, String lado, String localImplantacao,
-            LocalDateTime dateTime) {
+            LocalDateTime dataImplantacao) {
         this.numInicial = numInicial;
         this.numFinal = numFinal;
         this.descricao = descricao;
         this.lado = lado;
         this.localImplantacao = localImplantacao;
-        this.dataImplantacao = dateTime;
+        this.dataImplantacao = dataImplantacao;
     }
 
     public double getNumInicial() {
