@@ -104,7 +104,14 @@ public class ListaRua {
             if (aux.lista.size() > maior) {
                 maior = aux.lista.size();
             }
+            for (int j = 0; j < count; j++){
+                if (aux.lista.size() == maior) {
+                    ruaCMS = aux.toString();
+                }
+            }
+            return ruaCMS;
         }
+        return null;
     }
 }
 
