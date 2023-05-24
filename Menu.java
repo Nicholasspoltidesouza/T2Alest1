@@ -17,9 +17,9 @@ public class Menu {
     private ListaSinalizacoes lista;
 
     Menu(){
-        Scanner in = new Scanner(System.in);
-        ListaSinalizacoes lista = new ListaSinalizacoes();
-        ListaRua listaRua = new ListaRua();
+        in = new Scanner(System.in);
+        lista = new ListaSinalizacoes();
+        listaRua = new ListaRua();
     }
 
     public void leituraArquivo(){
@@ -44,7 +44,7 @@ public class Menu {
         // Mude numLinhas para algum numero pequeno para executar testes mais rapidamente.
         // Ex:
         // for (int i = 0; i < 50; i++) {
-        for (int i = 0; i < numLinhas; i++) {
+        for (int i = 0; i < 100; i++) {
             String[] campos = linhas[i].split(";");
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
@@ -109,19 +109,20 @@ public class Menu {
 
             System.out.println("Num inicial e final: " + numInicial + ", " + numFinal + "; "
                     + defronte + "; " + cruzamento + "; " + lado + "; " + fluxo + "; " + localInstalacao);
-            System.out.println("---------------------------------------> " + i);
+            System.out.println("---------------------------------------> " + i + "\n");
         }
     }
 
     public void menu(){
-        leituraArquivo();
+        System.out.println("------Menu De Interação------\n");
         System.out.println("1 - Rua/Av/Trav com mais sinalizações registradas");
-        System.out.println("2 - Mês que mais foram implatadas senialuzações em Rua/Av/Trav");
+        System.out.println("2 - Mês que mais foram implatadas sinalizações em Rua/Av/Trav");
         System.out.println("3 - Menu de Navegação");
+        System.out.println("Opção Escolhida:");
     }
 
     public void executa() {
-        Scanner in = new Scanner(System.in);
+        in = new Scanner(System.in);
         int opcao = -1;
         do {
             menu();
@@ -147,12 +148,12 @@ public class Menu {
                 case 0:
                     break;
                 case 1:
-                    System.out.println(lista.toString());
+                    System.out.println("Rua com mais sinalizações: " + listaRua.getRuaComMaisSinalizacoes() + "\n");
                     break;
-                /*case 2:
-                    cadastraEspacoNave();
+                case 2:
+                    System.out.println("Mês em que foram mais implantadas sinalizações: " + listaRua.getMesComMaisSinalizacoes() + "\n");
                     break;
-                case 3:
+                /*case 3:
                     cadastraTransporte();
                     break;
                 default:
