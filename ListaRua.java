@@ -1,16 +1,16 @@
 public class ListaRua {
     private class Node{ 
-        public Node prev;
-        public Node next;
-        public ListaSinalizacoes lista;
-        public String nomeRua;
-        public String idRua;
+        private Node prev;
+        private Node next;
+        private ListaSinalizacoes lista;
+        private String nomeRua;
+        private String idRua;
 
-        Node(String idRua, String nomeRua){
-            this.idRua = idRua;
-            this.nomeRua = nomeRua;
-            lista = new ListaSinalizacoes();
-        }
+            public Node(String idRua, String nomeRua){
+                this.nomeRua = nomeRua;
+                lista = new ListaSinalizacoes();
+                this.idRua = idRua;
+            }
     }
 
     private Node header;
@@ -18,6 +18,13 @@ public class ListaRua {
     private Node current;     
     private int count;
 
+    public ListaRua(){
+        header = new Node(null, null);
+        trailer = new Node(null, null);
+        header.next = trailer;
+        trailer.prev = header;
+        count = 0;
+    }
 
     public void orderedAdd (String idRua, String nomeRua, Sinalizacao sinalizacao)  { 
         Node aux = contains(nomeRua); 
@@ -62,9 +69,9 @@ public class ListaRua {
     }
     
     private Node contains(String nomeRua) {
-        Node aux = header;
+        Node aux = header.next;
         
-        while (aux != trailer) {
+        for (int i = 0; i < count; i++) {
             if (aux.nomeRua.equals(nomeRua)) {
                 return aux;
             }
@@ -97,21 +104,88 @@ public class ListaRua {
     }   
 
     public String getRuaComMaisSinalizacoes(){
-        String ruaCMS = null;
-        int maior = 0;
+        //String ruaCMS = null;
+        Node maior = null;
+        int numMaior = 0;
         Node aux = header.next;
         for (int i = 0; i < count; i++) {
-            if (aux.lista.size() > maior) {
-                maior = aux.lista.size();
+            if (aux.lista.size() > numMaior) {
+                numMaior = aux.lista.size();
+                maior = aux;
             }
-            for (int j = 0; j < count; j++){
-                if (aux.lista.size() == maior) {
-                    ruaCMS = aux.toString();
-                }
-            }
-            return ruaCMS;
+            aux = aux.next;
         }
-        return null;
+        
+        return maior.nomeRua;
+    }
+
+    public int getMesComMaisSinalizacoes(){
+        Node aux = header.next;
+        int mes = 0;
+        int maiorMes = 0;
+        int maiorMesPos = 0;
+        int mes1 = 0, mes2 = 0, mes3 = 0,mes4 = 0, mes5 = 0, mes6 = 0, mes7 = 0, mes8 = 0, mes9 = 0, mes10 = 0, mes11 = 0, mes12 = 0;
+        for (int i = 0; i < count; i++) {
+            mes = aux.lista.getMes(i);
+            if (mes == 1){
+                mes1+=1;
+            }
+            if (mes == 2){
+                mes2+=1;
+            }
+            if (mes == 3){
+                mes3+=1;
+            }
+            if (mes == 4){
+                mes4+=1;
+            }
+            if (mes == 5){
+                mes5+=1;
+            }
+            if (mes == 6){
+                mes6+=1;
+            }
+            if (mes == 7){
+                mes7+=1;
+            }
+            if (mes == 8){
+                mes8+=1;
+            }
+            if (mes == 9){
+                mes9+=1;
+            }
+            if (mes == 10){
+                mes10+=1;
+            }
+            if (mes == 11){
+                mes11+=1;
+            }
+            if (mes == 12){
+                mes12+=1;
+            }
+            aux = aux.next;
+        }
+        int[] meses = new int[12];
+        meses[0] = mes1;
+        meses[1] = mes2;
+        meses[2] = mes3;
+        meses[3] = mes4;
+        meses[4] = mes5;
+        meses[5] = mes6;
+        meses[6] = mes7;
+        meses[7] = mes8;
+        meses[8] = mes9;
+        meses[9] = mes10;
+        meses[10] = mes11;
+        meses[11] = mes12;
+        for (int j = 0; j < meses.length; j++){
+            if (meses[j] > maiorMes){
+                maiorMes = meses[j];
+                maiorMesPos = j;
+            }
+        }
+        return maiorMesPos+1;
     }
 }
+
 

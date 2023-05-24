@@ -20,6 +20,7 @@ public class ListaSinalizacoes {
      public ListaSinalizacoes(){
         Node head = null;
         Node tail = null;
+        Node current = null;
         int count = 0;
      }
 
@@ -35,6 +36,9 @@ public class ListaSinalizacoes {
      }
 
      public int getMes(int index){
+        if (index < 0 || index >= count){
+            return -1;
+        }
         Node aux = head;
         if (head == null) {
             return -1;
@@ -42,6 +46,7 @@ public class ListaSinalizacoes {
      for (int i = 0; i < index; i++) {
         aux = aux.next;
      }
+     if ()
       return aux.element.getDataImplantacao().getMonthValue();
     }
 
@@ -58,7 +63,7 @@ public class ListaSinalizacoes {
 
     public LocalDateTime getMenorData(){
         LocalDateTime menor = head.element.getDataImplantacao();
-        Node aux = head.next;
+        Node aux = head;
         if (head == null) {
             return null;
         }
@@ -118,6 +123,4 @@ public class ListaSinalizacoes {
 
         return s.toString();
     }
-    
-
 }
