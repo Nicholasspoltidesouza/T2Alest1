@@ -20,16 +20,14 @@ public class ListaRua {
 
 
     public void orderedAdd (String idRua, String nomeRua, Sinalizacao sinalizacao)  { 
-        Node aux = containsElement(nomeRua); 
+        Node aux = contains(nomeRua); 
         if (aux == null) {  
             Node n = new Node(idRua, nomeRua);
-
             if (header.next == trailer) { 
                 n.prev = header;
                 n.next = trailer;
                 trailer.prev = n;
                 header.next = n;
-
             } 
             else if (nomeRua.compareTo(header.next.nomeRua)<0) { 
                 n.next = header.next;
@@ -58,10 +56,12 @@ public class ListaRua {
                 }
             }
             count++;
+        } else {
+            aux.lista.add(sinalizacao);
         }
     }
     
-    private Node containsElement(String nomeRua) {
+    private Node contains(String nomeRua) {
         Node aux = header;
         
         while (aux != trailer) {
@@ -73,5 +73,38 @@ public class ListaRua {
         
         return null;
     } 
+
+    public void reset() {
+        current = header.next;
+    }
+
+    public String next() {
+        if (current != trailer) {
+            String rua = current.nomeRua;
+            current = current.next;
+            return rua;
+        }
+        return null;
+    }    
+
+    public String prev() {
+        if (current != header) {
+            String rua = current.nomeRua;
+            current = current.prev;
+            return rua;
+        }
+        return null;
+    }   
+
+    public String getRuaComMaisSinalizacoes(){
+        String ruaCMS = null;
+        int maior = 0;
+        Node aux = header.next;
+        for (int i = 0; i < count; i++) {
+            if (aux.lista.size() > maior) {
+                maior = aux.lista.size();
+            }
+        }
+    }
 }
 
