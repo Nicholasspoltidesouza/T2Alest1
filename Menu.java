@@ -27,7 +27,7 @@ public class Menu {
         int numLinhas = 0;
 
         Path filePath = Paths.get("dataEditado.csv");
-        
+
         // Ler o arquivo
         try ( BufferedReader reader = Files.newBufferedReader(filePath, Charset.defaultCharset())) {
             String line = reader.readLine();
@@ -44,7 +44,7 @@ public class Menu {
         // Mude numLinhas para algum numero pequeno para executar testes mais rapidamente.
         // Ex:
         // for (int i = 0; i < 50; i++) {
-        for (int i = 0; i < 20; i++) {
+        for (int i = 0; i < numLinhas; i++) {
             String[] campos = linhas[i].split(";");
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
@@ -55,47 +55,41 @@ public class Menu {
             int horaDataExtracao = dateTime.getHour();
             int minDataExtracao = dateTime.getMinute();
 
-            System.out.println("Data e hora extracao: " + diaDataExtracao + "/" + mesDataExtracao + "/" + anoDataExtracao + ", " + horaDataExtracao + ":" + minDataExtracao);
-
+            LocalDate date = null;
             String descricao = campos[1];
             String estado = campos[2];
             String complemento = campos[3];
 
-            System.out.println("Descricao: " + descricao);
-            System.out.println("Estado: " + estado + ", " + complemento);
 
             int anoImplantacao = 0;
             int mesImplantacao = 0;
-            int diaImplantacao = 0;            
+            int diaImplantacao = 0;
             if(!campos[4].equals("")) {
                 if(campos[4].contains("-"))
                     formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 else
                     formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                LocalDate date = LocalDate.parse(campos[4], formatter);
+                 date = LocalDate.parse(campos[4], formatter);
                 anoImplantacao = date.getYear();
                 mesImplantacao = date.getMonthValue();
                 diaImplantacao = date.getDayOfMonth();
             }
-            
-            System.out.println("Data implantacao: " + diaImplantacao + "/" + mesImplantacao + "/" + anoImplantacao);
 
             String logradouro = campos[5].split(" ", 2)[0];
             String nomeLog = campos[5].split(" ", 2)[1];
-            System.out.println("Logradouro: " + logradouro + " " + nomeLog);
 
             double numInicial;
             if(campos[6].equals(""))
                 numInicial = 0;
             else
                 numInicial = Double.parseDouble(campos[6]);
-            
+
             double numFinal;
             if(campos[7].equals(""))
                 numFinal = 0;
             else
                 numFinal = Double.parseDouble(campos[7]);
-            
+
             String defronte = campos[8];
             String cruzamento = campos[9];
             String lado = campos[10];
@@ -105,9 +99,12 @@ public class Menu {
             String localInstalacao = "";
             if(campos.length>=13)
                 localInstalacao = campos[12];
-            ListaSinalizacoes lista = new ListaSinalizacoes();
+
+
+           
             Sinalizacao sinalizacao = new Sinalizacao(numInicial, numFinal, descricao, lado, localInstalacao, dateTime);
-            listaRua.orderedAdd(logradouro, nomeLog, sinalizacao);
+
+            listaRua.orderedAdd(logradouro,nomeLog,sinalizacao);
             
 
             System.out.println("Num inicial e final: " + numInicial + ", " + numFinal + "; "
