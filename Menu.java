@@ -13,13 +13,13 @@ import java.time.format.DateTimeFormatter;
 
 public class Menu {
     private Scanner in;
-    private char[] lista;
-    private char[] lista2;
+    private ListaRua listaRua;
+    private ListaSinalizacoes lista;
 
     Menu(){
         Scanner in = new Scanner(System.in);
         ListaSinalizacoes lista = new ListaSinalizacoes();
-        LinkedListOfString lista2 = new LinkedListOfString();
+        ListaRua listaRua = new ListaRua();
     }
 
     public void leituraArquivo(){
@@ -107,10 +107,8 @@ public class Menu {
                 localInstalacao = campos[12];
             ListaSinalizacoes lista = new ListaSinalizacoes();
             Sinalizacao sinalizacao = new Sinalizacao(numInicial, numFinal, descricao, lado, localInstalacao, dateTime);
-            lista.add(sinalizacao);
-            LinkedListOfString lista2 = new LinkedListOfString();
-            Rua rua = new Rua(logradouro, nomeLog);
-            lista2.orderedAdd(rua);
+            listaRua.orderedAdd(logradouro, nomeLog, sinalizacao);
+            
 
             System.out.println("Num inicial e final: " + numInicial + ", " + numFinal + "; "
                     + defronte + "; " + cruzamento + "; " + lado + "; " + fluxo + "; " + localInstalacao);
@@ -153,7 +151,6 @@ public class Menu {
                     break;
                 case 1:
                     System.out.println(lista.toString());
-                    System.out.println(lista2.toString());
                     break;
                 /*case 2:
                     cadastraEspacoNave();
