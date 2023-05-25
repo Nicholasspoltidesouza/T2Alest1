@@ -18,10 +18,10 @@ public class ListaSinalizacoes {
      private int count;
 
      public ListaSinalizacoes(){
-        Node head = null;
-        Node tail = null;
-        Node current = null;
-        int count = 0;
+        head = null;
+        tail = null;
+        current = null;
+        count = 0;
      }
 
      public void add(Sinalizacao element){
@@ -45,8 +45,10 @@ public class ListaSinalizacoes {
      }
      for (int i = 0; i < index; i++) {
         aux = aux.next;
+        if (aux.element.getDataImplantacao() == null){
+            continue;
+         }
      }
-     if ()
       return aux.element.getDataImplantacao().getMonthValue();
     }
 
@@ -96,14 +98,13 @@ public class ListaSinalizacoes {
     }
     
     public Sinalizacao next() { 
-        Sinalizacao numPosCurrent = null;
         if (current != null) { 
-            numPosCurrent = current.element; 
+            Sinalizacao numPosCurrent = current.element; 
             current = current.next; 
             return numPosCurrent; 
         }
         return null;
-    }    
+    } 
 
     public int size(){
         return count;

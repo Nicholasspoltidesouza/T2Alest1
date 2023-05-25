@@ -44,7 +44,7 @@ public class Menu {
         // Mude numLinhas para algum numero pequeno para executar testes mais rapidamente.
         // Ex:
         // for (int i = 0; i < 50; i++) {
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < 500; i++) {
             String[] campos = linhas[i].split(";");
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
@@ -153,12 +153,65 @@ public class Menu {
                 case 2:
                     System.out.println("Mês em que foram mais implantadas sinalizações: " + listaRua.getMesComMaisSinalizacoes() + "\n");
                     break;
-                /*case 3:
-                    cadastraTransporte();
-                    break;
+                case 3:
+                    menuNavegacaoStart();
+                break;
                 default:
-                    System.out.println("Opção inválida");*/
+                    System.out.println("Opção inválida");
             } 
         } while (opcao != 0);
     }
+
+     public void menuNavegacao(){
+        System.out.println("------Menu de Navegação------");
+        System.out.println("nr - Próxima rua");
+        System.out.println("pr - Rua anterior");
+        System.out.println("exit - Sair");
+        System.out.println("Opção escolhida:");
+     }
+
+     public void menuNavegacaoStart() {
+        listaRua.reset();
+        lista.reset();
+        in = new Scanner(System.in);
+        String opcao = " ";
+        do {
+            menuNavegacao();
+            boolean ok;
+            do {
+                ok = true;
+                try {
+                opcao = in.nextLine();
+                } catch (InputMismatchException e1) {
+                    in.nextLine();
+                    ok = false;
+                    System.out.println("Tipo incorreto. Redigite.\n");
+                } catch (Exception e2) {
+                    in.nextLine();
+                    ok = false;
+                    e2.printStackTrace();
+                    System.out.println("Redigite.\n");
+                }
+            } while (!ok);
+
+            switch (opcao) {
+                case "nr":
+                    String nr = listaRua.next();
+                    lista.reset();
+                    System.out.println(nr.toString() + " Total de implantações: " + listaRua.getTotalSinalizacoesPorRua(nr) + "\n");
+                    break;
+                case "pr":
+                    String pr = listaRua.prev();
+                    lista.reset();
+                    System.out.println(pr.toString() + " Total de implantações: " + listaRua.getTotalSinalizacoesPorRua(pr) + "\n");
+                    break;
+                case "exit":
+                    executa();
+                    break;
+                default:
+                    System.out.println("Opção inválida");
+            } 
+        } while (opcao != null);
+    }
+
 }
