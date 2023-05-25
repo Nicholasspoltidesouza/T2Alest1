@@ -7,10 +7,10 @@ public class Sinalizacao {
     private String descricao;
     private String lado;
     private String localImplantacao;
-    private LocalDateTime dataImplantacao;
+    private LocalDate dataImplantacao;
     
     public Sinalizacao(double numInicial, double numFinal, String descricao, String lado, String localImplantacao,
-            LocalDateTime dataImplantacao) {
+            LocalDate dataImplantacao) {
         this.numInicial = numInicial;
         this.numFinal = numFinal;
         this.descricao = descricao;
@@ -39,7 +39,7 @@ public class Sinalizacao {
         return localImplantacao;
     }
 
-    public LocalDateTime getDataImplantacao() {
+    public LocalDate getDataImplantacao() {
         return dataImplantacao;
     }
 

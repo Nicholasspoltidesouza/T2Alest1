@@ -44,7 +44,7 @@ public class Menu {
         // Mude numLinhas para algum numero pequeno para executar testes mais rapidamente.
         // Ex:
         // for (int i = 0; i < 50; i++) {
-        for (int i = 0; i < 500; i++) {
+        for (int i = 0; i < numLinhas; i++) {
             String[] campos = linhas[i].split(";");
 
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
@@ -102,9 +102,12 @@ public class Menu {
 
 
            
-            Sinalizacao sinalizacao = new Sinalizacao(numInicial, numFinal, descricao, lado, localInstalacao, dateTime);
+            Sinalizacao sinalizacao = new Sinalizacao(numInicial, numFinal, descricao, lado, localInstalacao, date);
 
             listaRua.orderedAdd(logradouro,nomeLog,sinalizacao);
+
+            lista.reset();
+            listaRua.reset();
             
 
             System.out.println("Num inicial e final: " + numInicial + ", " + numFinal + "; "
@@ -115,6 +118,7 @@ public class Menu {
 
     public void menu(){
         System.out.println("------Menu De Interação------\n");
+        System.out.println("0 - Fechar App");
         System.out.println("1 - Rua/Av/Trav com mais sinalizações registradas");
         System.out.println("2 - Mês que mais foram implatadas sinalizações em Rua/Av/Trav");
         System.out.println("3 - Menu de Navegação");
@@ -146,18 +150,19 @@ public class Menu {
 
             switch (opcao) {
                 case 0:
+                    System.exit(0);
                     break;
                 case 1:
-                    System.out.println("Rua com mais sinalizações: " + listaRua.getRuaComMaisSinalizacoes() + "\n");
+                    System.out.println("\nRua com mais sinalizações: " + listaRua.getRuaComMaisSinalizacoes() + "\n");
                     break;
                 case 2:
-                    System.out.println("Mês em que foram mais implantadas sinalizações: " + listaRua.getMesComMaisSinalizacoes() + "\n");
+                    System.out.println("\nMês em que foram mais implantadas sinalizações: " + listaRua.getMesComMaisSinalizacoes() + "\n");
                     break;
                 case 3:
                     menuNavegacaoStart();
                 break;
                 default:
-                    System.out.println("Opção inválida");
+                    System.out.println("Opção inválida" + "\n");
             } 
         } while (opcao != 0);
     }
@@ -166,13 +171,11 @@ public class Menu {
         System.out.println("------Menu de Navegação------");
         System.out.println("nr - Próxima rua");
         System.out.println("pr - Rua anterior");
-        System.out.println("exit - Sair");
+        System.out.println("exit - Voltar");
         System.out.println("Opção escolhida:");
      }
 
      public void menuNavegacaoStart() {
-        listaRua.reset();
-        lista.reset();
         in = new Scanner(System.in);
         String opcao = " ";
         do {
@@ -198,18 +201,20 @@ public class Menu {
                 case "nr":
                     String nr = listaRua.next();
                     lista.reset();
-                    System.out.println(nr.toString() + " Total de implantações: " + listaRua.getTotalSinalizacoesPorRua(nr) + "\n");
+                    System.out.println("\n" + nr.toString() + " Total de implantações: " + listaRua.getTotalSinalizacoesPorRua(nr) + " Primeira Implantação: " + listaRua.getDataAntiga(nr) +
+                    " Ultima Implantação: " + listaRua.getDataRecente(nr) + "\n");
                     break;
                 case "pr":
                     String pr = listaRua.prev();
                     lista.reset();
-                    System.out.println(pr.toString() + " Total de implantações: " + listaRua.getTotalSinalizacoesPorRua(pr) + "\n");
+                    System.out.println("\n" + pr.toString() + " Total de implantações: " + listaRua.getTotalSinalizacoesPorRua(pr) + " Primeira Implantação: " + listaRua.getDataAntiga(pr) +
+                    " Ultima Implantação: " + listaRua.getDataRecente(pr) + "\n");
                     break;
                 case "exit":
                     executa();
                     break;
                 default:
-                    System.out.println("Opção inválida");
+                    System.out.println("Opção inválida" + "\n");
             } 
         } while (opcao != null);
     }

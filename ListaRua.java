@@ -1,4 +1,5 @@
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 public class ListaRua {
     private class Node{ 
@@ -108,7 +109,7 @@ public class ListaRua {
             for (int j = 0; j < aux.lista.size(); j++) {
                 Integer mes = aux.lista.getMes(j);
                 if (mes != null) {
-                    meses[mes]++;
+                    meses[mes-1]++;
                 }
             }
             aux = aux.next;
@@ -140,39 +141,26 @@ public class ListaRua {
         return 0;
     }
 
-    public LocalDateTime getMenorDataSinalizacao() {
-        LocalDateTime menorData = null;
-
-        Node aux = header.next;
-        while (aux != trailer) {
-            LocalDateTime dataSinalizacao = aux.lista.getMenorData();
-            if (dataSinalizacao != null) {
-                if (menorData == null || dataSinalizacao.isBefore(menorData)) {
-                    menorData = dataSinalizacao;
-                }
-            }
-            aux = aux.next;
+    public LocalDate getDataRecente(String nomeRua) {
+        Node aux = contains(nomeRua);
+        
+        if (aux != null) {
+            return aux.lista.getMenorData();
         }
-
-        return menorData;
+        
+        return null;
     }
 
-    public LocalDateTime getMaiorDataSinalizacao() {
-        LocalDateTime maiorData = null;
-
-        Node aux = header.next;
-        while (aux != trailer) {
-            LocalDateTime dataSinalizacao = aux.lista.getMaiorData();
-            if (dataSinalizacao != null) {
-                if (maiorData == null || dataSinalizacao.isAfter(maiorData)) {
-                    maiorData = dataSinalizacao;
-                }
-            }
-            aux = aux.next;
+    public LocalDate getDataAntiga(String nomeRua) {
+        Node aux = contains(nomeRua);
+        
+        if (aux != null) {
+            return aux.lista.getMaiorData();
         }
-
-        return maiorData;
+        
+        return null;
     }
+
 }
 
 

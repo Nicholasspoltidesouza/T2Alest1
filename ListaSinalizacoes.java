@@ -1,5 +1,6 @@
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+
+import javax.swing.text.html.parser.Element;
 
 public class ListaSinalizacoes {
     private class Node{ 
@@ -35,36 +36,33 @@ public class ListaSinalizacoes {
         count++;
      }
 
-     public int getMes(int index){
-        if (index < 0 || index >= count){
+     public int getMes(int index) {
+        if (index < 0 || index >= count) {
             return -1;
         }
+    
         Node aux = head;
         if (head == null) {
             return -1;
-     }
-     for (int i = 0; i < index; i++) {
-        aux = aux.next;
-        if (aux.element.getDataImplantacao() == null){
-            continue;
-         }
-     }
-      return aux.element.getDataImplantacao().getMonthValue();
-    }
-
-    public LocalDateTime getDataDeImplantacao(int index){
-        Node aux = head;
-        if (head == null) {
-            return null;
         }
+    
         for (int i = 0; i < index; i++) {
             aux = aux.next;
         }
-        return aux.element.getDataImplantacao();
+    
+        while (aux != null && aux.element.getDataImplantacao() == null) {
+            aux = aux.next;
+        }
+    
+        if (aux != null) {
+            return aux.element.getDataImplantacao().getMonthValue();
+        }
+    
+        return 1;
     }
 
-    public LocalDateTime getMenorData(){
-        LocalDateTime menor = head.element.getDataImplantacao();
+    public LocalDate getMenorData(){
+        LocalDate menor = head.element.getDataImplantacao();
         Node aux = head;
         if (head == null) {
             return null;
@@ -78,9 +76,9 @@ public class ListaSinalizacoes {
         return menor;
     }
 
-    public LocalDateTime getMaiorData(){
-        LocalDateTime maior = head.element.getDataImplantacao();
-        Node aux = head.next;
+    public LocalDate getMaiorData(){
+        LocalDate maior = head.element.getDataImplantacao();
+        Node aux = head;
         if (head == null) {
             return null;
         }
