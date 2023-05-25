@@ -71,9 +71,8 @@ public class ListaRua {
 
     public String next() {
         if (current != trailer) {
-            String rua = current.nomeRua;
             current = current.next;
-            return rua;
+            return current.nomeRua;
         }
         return null;
     }  
