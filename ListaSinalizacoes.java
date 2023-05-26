@@ -1,7 +1,5 @@
 import java.time.LocalDate;
 
-import javax.swing.text.html.parser.Element;
-
 public class ListaSinalizacoes {
     private class Node{ 
         public Sinalizacao element;
